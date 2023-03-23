@@ -1,0 +1,71 @@
+<html>
+<head>
+<style>
+  div1{border: 1px solid black; position: absolute; padding-top: 40px; padding-right: 40px; padding-left: 40px; padding-bottom: 40px;}
+  #one {left: 500px; top: 640px;}
+  #two {left:  250px; top: 200px;}
+</style>
+
+<script>
+ function loadXMLDoc() {
+      var xmlhttp;
+      if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();  
+      }
+      else {
+        // code for IE6, IE5  
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xmlhttp.onreadystatechange=function() {
+        //alert (xmlhttp.status);
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) { 
+          document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+        }
+      }
+      xmlhttp.open("GET","text.txt",true);
+      xmlhttp.send();
+    }  
+
+    function write(){
+        $.ajax({
+        type: 'POST',
+        url: "write.php",
+        data: {something:"dummydata"},
+        success: function(result) {
+            alert('the data was successfully sent to the server');
+        }
+        })
+    }
+</script>
+
+</head>
+<body>
+
+
+Click to write some stuff
+<a href="javascript:write()" class="write">Write</a>
+<div id="myDiv">
+</div>
+
+
+<div>
+
+
+
+<label>Enter your message:  </label>
+<input type="text" name="message"></br>
+</br>
+
+
+<label>Pick a background color: </label>
+<input type="color" id="bgcolor" name="bgcolor" >
+</br></br>
+
+<button type="button" onclick="loadXMLDoc()">Add message to database</button>
+<br><br>
+<table id="demo"></table>
+</div>
+
+</body>
+</html>
